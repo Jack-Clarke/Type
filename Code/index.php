@@ -56,7 +56,7 @@
 <body OnLoad="document.typeapp.texttype.focus();">
 	<form name="typeapp" id="typeapp">
     	<div id="page">
-    		<span><textarea wrap="off" draggable="false" id="texttype" name="texttype" spellcheck="false" class="type" onkeyup="countChar(this)"></textarea>
+    		<span><textarea wrap="off" draggable="false" id="texttype" name="texttype" spellcheck="false" class="type" onkeyup="countChar(this)" onkeypress="keypressed(e)"></textarea>
         	<span id="texttypeSpan">&nbsp;</span></span>
             <div id="charNum"></div>
     	</div>
@@ -66,7 +66,7 @@
     
     <script src="/js/jquery-1.10.2.js"></script>
     <script>
-      $('#texttype').keyup(function () { 
+      $('#texttype').keyup(function () { //on keyup of any key in div #texttype execute this function
 		  var close = 54; //establishes a variable called 'close' which simply holds the value 54
 		  var max = 64; //establishes a variable called 'max' which simply holds the value 64
 		  var len = $(this).val().length; //gets the length of the variable #texttype and stores it in varaible 'len'
@@ -86,6 +86,16 @@
 			$('#charNum').text(char + ' characters left.'); //places the text in #charNum with the value of variable 'char' and the text 'characters...'
 		  }
 		});
+		
+		$('#texttype').keypress(function(event){
+ 
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+			if(keycode == '13'){
+				alert('You pressed a "enter" key in textbox');	
+			}
+				event.stopPropagation();
+			});
+
     </script>
 	
 </body>
