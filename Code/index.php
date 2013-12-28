@@ -66,15 +66,15 @@
     
     <script src="/js/jquery-1.10.2.js"></script>
     <script>
-      $('#texttype').keyup(function () {
-		  var max = 50;
-		  var len = $(this).val().length;
-		  if (len >= max) {
-			$('#charNum').text(' you have reached the limit');
+      $('#texttype').keyup(function () { 
+		  var max = 50; //establishes a variable called 'max' which simply holds the value 50
+		  var len = $(this).val().length; //gets the length of the variable #texttype
+		  if (len >= max) { //if the length of #texttype reaches the value of the variable 'max' then...
+			$('#charNum').text(' you have reached the limit'); //replaces the text in #charNum div with 'you have...'
 			// Do other stuff here
-		  } else {
+		  } else { //if the length of the #texttype variable has not reached the value of 'max' then...
 			var char = max - len;
-			$('#charNum').text(char + ' characters left');
+			$('#charNum').text(char + ' characters left'); //
 		  }
 		});
     </script>
