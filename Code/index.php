@@ -44,7 +44,7 @@
 		}
 		html	{margin:0;padding:0;}
 		body	{margin:0;padding:0;valign:center;}
-		.type	{font-size:225%;font-family:"Courier New", Courier, monospace;width:70%;height:300px;display:block;border:1px solid #c1c1c1;margin:0 auto;background:#f1f1f1;}
+		.type	{font-size:100%;font-family:"Courier New", Courier, monospace;width:70%;height:300px;display:block;border:1px solid #c1c1c1;margin:0 auto;background:#f1f1f1;}
 		#page	{width:100%;padding:100px 0;}
 		#charNum	{width:70%;margin:10px auto;}
 	</style>
@@ -67,14 +67,22 @@
     <script src="/js/jquery-1.10.2.js"></script>
     <script>
       $('#texttype').keyup(function () { 
-		  var max = 50; //establishes a variable called 'max' which simply holds the value 50
-		  var len = $(this).val().length; //gets the length of the variable #texttype
-		  if (len >= max) { //if the length of #texttype reaches the value of the variable 'max' then...
-			$('#charNum').text(' you have reached the limit'); //replaces the text in #charNum div with 'you have...'
-			// Do other stuff here
-		  } else { //if the length of the #texttype variable has not reached the value of 'max' then...
-			var char = max - len;
-			$('#charNum').text(char + ' characters left'); //
+		  var close = 54; //establishes a variable called 'close' which simply holds the value 54
+		  var max = 64; //establishes a variable called 'max' which simply holds the value 64
+		  var len = $(this).val().length; //gets the length of the variable #texttype and stores it in varaible 'len'
+		  
+		  if (len >= close) { //if the length of #texttype is greater than or equal to the value of the variable 'close' then...
+		  	var char = max - len; //establishes the variable 'char' as being the value of 'max' - the length of the variable #texttype
+			$('#charNum').text(char + ' characters left.' + ' You are approaching the limit.'); //replaces the text in #charNum div with 'you have...'
+		  
+		  } else if (len >= max) { //if the length of #texttype is greater than or equal to the value of the variable 'max' then...
+		  	$("#texttype").keydown(function(event) { //gets the variable #texttype and tells it that on the keydown function this will happen...
+				return false; //...it will return false which disallows access to key down
+			});
+		 
+		  } else { //if the length of the #texttype variable has not reached either the value of 'max' or 'close' then...
+			var char = max - len; //establishes the variable 'char' as being the value of 'max' - the length of the variable #texttype
+			$('#charNum').text(char + ' characters left.'); //places the text in #charNum with the value of variable 'char' and the text 'characters...'
 		  }
 		});
     </script>
