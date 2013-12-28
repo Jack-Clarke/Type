@@ -66,10 +66,15 @@
     
     <script src="/js/jquery-1.10.2.js"></script>
     <script>
+	
+	var len = $('#texttype').keyup(function () {
+		$(this).val().length; //gets the length of the variable #texttype and stores it in varaible 'len'
+	});
+	
       $('#texttype').keyup(function () { //on keyup of any key in div #texttype execute this function
+		  
 		  var close = 54; //establishes a variable called 'close' which simply holds the value 54
 		  var max = 64; //establishes a variable called 'max' which simply holds the value 64
-		  var len = $(this).val().length; //gets the length of the variable #texttype and stores it in varaible 'len'
 		  
 		   if (len >= max) { //if the length of #texttype is greater than or equal to the value of the variable 'max' then...
 		   	$('#charNum').text('You have reached the limit.');
@@ -91,7 +96,7 @@
  
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 			if(keycode == '13'){
-				len = 0;	
+				len = [0];
 			}
 				event.stopPropagation();
 			});
@@ -106,7 +111,7 @@
 			});
 			
 
-    </script>
+    </script></
 	
 </body>
 </html>
