@@ -91,10 +91,20 @@
  
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 			if(keycode == '13'){
-				alert('You pressed a "enter" key in textbox');	
+				len = 0;	
 			}
 				event.stopPropagation();
 			});
+			
+		$('#texttype').keypress(function(event){
+ 
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+			if(keycode == '8'){
+				return false;	
+			}
+				event.stopPropagation();
+			});
+			
 
     </script>
 	
