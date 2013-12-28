@@ -42,17 +42,20 @@
 			margin-left: 90px;
 			line-height: 140%;
 		}
-		.type	{font-size:400%;font-family:"Courier New", Courier, monospace}
+		html	{margin:0;padding:0;}
+		body	{margin:0;padding:0;valign:center;}
+		.type	{font-size:500%;font-family:"Courier New", Courier, monospace;width:70%;height:300px;display:block;border:1px solid #c1c1c1;margin:0 auto;background:#f1f1f1;}
+		#page	{width:100%;padding:100px 0;}
 	</style>
     
 </head>
 
 <body OnLoad="document.typeapp.texttype.focus();">
-	
+	<div id="page">
     <form name="typeapp" id="typeapp">
-    	<textarea rows="10" wrap="virtual" cols="20" draggable="false" id="texttype" name="texttype" spellcheck="true" class="type"></textarea>
+    	<textarea wrap="virtual" draggable="false" id="texttype" name="texttype" spellcheck="false" class="type"></textarea>
     </form>
-    
+    </div>
     <script src="/js/jquery-1.10.2.js"></script>
 
 </body>
