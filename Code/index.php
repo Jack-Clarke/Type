@@ -42,11 +42,18 @@
 			margin-left: 90px;
 			line-height: 140%;
 		}
+		.type	{font-size:400%;font-family:"Courier New", Courier, monospace}
 	</style>
+    
 </head>
 
-<body>
-	<p>Type app</p>
-    <hr />
+<body OnLoad="document.typeapp.texttype.focus();">
+	
+    <form name="typeapp" id="typeapp">
+    	<textarea rows="10" wrap="virtual" cols="20" draggable="false" id="texttype" name="texttype" spellcheck="true" class="type"></textarea>
+    </form>
+    
+    <script src="/js/jquery-1.10.2.js"></script>
+
 </body>
 </html>
