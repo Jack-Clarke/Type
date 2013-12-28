@@ -53,7 +53,7 @@
 <body OnLoad="document.typeapp.texttype.focus();">
 	<div id="page">
     <form name="typeapp" id="typeapp">
-    	<textarea wrap="virtual" draggable="false" id="texttype" name="texttype" spellcheck="false" class="type"></textarea>
+    	<textarea wrap="off" draggable="false" id="texttype" name="texttype" spellcheck="false" class="type"></textarea>
     </form>
     </div>
     <script src="/js/jquery-1.10.2.js"></script>
