@@ -67,8 +67,14 @@
     <script src="/js/jquery-1.10.2.js"></script>
     <script>
 	
-	var len = $('#texttype').keyup(function () {
+	/*var len = $('#texttype').keyup(function () {
 		$(this).val().length; //gets the length of the variable #texttype and stores it in varaible 'len'
+	});*/
+	
+	len = 0
+	
+	$('#texttype').on("keypress",function(){
+    	len++;
 	});
 	
       $('#texttype').keyup(function () { //on keyup of any key in div #texttype execute this function
@@ -92,11 +98,11 @@
 		  }
 		});
 		
-		$('#texttype').keypress(function(event){
+		var enter = $('#texttype').keydown(function(event){
  
 			var keycode = (event.keyCode ? event.keyCode : event.which);
 			if(keycode == '13'){
-				len = [0];
+				return true;
 			}
 				event.stopPropagation();
 			});
@@ -111,7 +117,7 @@
 			});
 			
 
-    </script></
+    </script>
 	
 </body>
 </html>
