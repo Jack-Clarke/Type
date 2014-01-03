@@ -71,19 +71,38 @@
 		$(this).val().length; //gets the length of the variable #texttype and stores it in varaible 'len'
 	});*/
 	
-	len = 0
+	$('#texttype').keypress(function(event){
+ 
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+			if(keycode == '8'){
+				return false;	
+			}
+				event.stopPropagation();
+	});
 	
-	$('#texttype').on("keypress",function(){
-    	len++;
+	len = 0; //declares len with an initial value of 0
+	
+	
+	var enter = $('#texttype').keydown(function(event){
+ 
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+		if(keycode == '13'){
+			len = 0;
+		}
+			event.stopPropagation();
+		});
+	
+	$('#texttype').on("keypress",function(){ //on keypress within the div #texttype...
+    	len++; //add one to the value of len
 	});
 	
       $('#texttype').keyup(function () { //on keyup of any key in div #texttype execute this function
 		  
-		  var close = 54; //establishes a variable called 'close' which simply holds the value 54
-		  var max = 64; //establishes a variable called 'max' which simply holds the value 64
+		  var close = 55; //establishes a variable called 'close' which simply holds the value 54
+		  var max = 65; //establishes a variable called 'max' which simply holds the value 64
 		  
-		   if (len >= max) { //if the length of #texttype is greater than or equal to the value of the variable 'max' then...
-		   	$('#charNum').text('You have reached the limit.');
+		   if (len >= max) { //if the value of len is greater than or equal to the value of the variable 'max' then...
+		   	$('#charNum').text('You have reached the limit.'); //places the text 'You have...' in the #charNum div
 		  	$("#texttype").keydown(function(event) { //gets the variable #texttype and tells it that on the keydown function this will happen...
 				return false; //...it will return false which disallows access to key down
 			});
@@ -98,23 +117,6 @@
 		  }
 		});
 		
-		var enter = $('#texttype').keydown(function(event){
- 
-			var keycode = (event.keyCode ? event.keyCode : event.which);
-			if(keycode == '13'){
-				return true;
-			}
-				event.stopPropagation();
-			});
-			
-		$('#texttype').keypress(function(event){
- 
-			var keycode = (event.keyCode ? event.keyCode : event.which);
-			if(keycode == '8'){
-				return false;	
-			}
-				event.stopPropagation();
-			});
 			
 
     </script>
