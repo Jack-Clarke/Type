@@ -35,18 +35,51 @@
 		    border: none;
 		}
 
-	
-
 		.text {
 			width: 80%;
 			margin-left: 90px;
 			line-height: 140%;
 		}
-		html	{margin:0;padding:0;}
-		body	{margin:0;padding:0;valign:center;}
-		.type	{font-size:100%;font-family:"Courier New", Courier, monospace;width:70%;height:300px;display:block;border:1px solid #c1c1c1;margin:0 auto;background:#f1f1f1;}
-		#page	{width:100%;padding:100px 0;}
-		#charNum	{width:70%;margin:10px auto;}
+		
+		html	{
+			margin:0;
+			padding:0;
+		}
+		
+		body	{
+			margin:0;
+			padding:0;
+			valign:center;
+		}
+		
+		.type	{
+			font-size:100%;
+			font-family:"Courier New", Courier, monospace;
+			width:70%;
+			height:300px;
+			display:block;
+			border:1px solid #c1c1c1;
+			margin:0 auto;
+			background:#f1f1f1;
+		}
+		
+		#page	{
+			width:100%;
+			padding:100px 0;
+		}
+		
+		#charNum	{
+			width:70%;
+			margin:10px auto;
+		}
+		
+		*.unselectable {
+   			-moz-user-select: -moz-none;
+   			-khtml-user-select: none;
+   			-webkit-user-select: none;
+   			-o-user-select: none;
+   			user-select: none;
+    	}  
 	</style>
     
    
@@ -56,8 +89,10 @@
 <body OnLoad="document.typeapp.texttype.focus();">
 	<form name="typeapp" id="typeapp">
     	<div id="page">
-    		<span><textarea wrap="off" draggable="false" id="texttype" name="texttype" spellcheck="false" class="type" onkeyup="countChar(this)" onkeypress="keypressed(e)"></textarea>
-        	<span id="texttypeSpan">&nbsp;</span></span>
+    		<span>
+            	<textarea wrap="off" draggable="false" unselectable="on" id="texttype" name="texttype" spellcheck="false" class="type" onkeyup="countChar(this)" onkeypress="keypressed(e)"></textarea>
+        		<span id="texttypeSpan">&nbsp;</span>
+            </span>
             <div id="charNum"></div>
     	</div>
     </form>
@@ -71,35 +106,37 @@
 		$(this).val().length; //gets the length of the variable #texttype and stores it in varaible 'len'
 	});*/
 	
-	$('#texttype').keypress(function(event){
+	var len = 0; //declares len with an initial value of 0
+	
+	$('#texttype').keypress(function(event){ //on keypress in the div #texttype execute this function
  
-		var keycode = (event.keyCode ? event.keyCode : event.which);
-			if(keycode == '8'){
-				return false;	
+		var keycode = (event.keyCode ? event.keyCode : event.which); //defines variable which just looks around the keyboard?
+			if(keycode == '8'){ //if the keycode is 8 (delete key)...
+				len--; //counteracts problem where keystroke added to the value of len
+				return false; //return false disabling the key's functionality
 			}
-				event.stopPropagation();
+				event.stopPropagation(); //this is apparently good practice when dealing with keycodes?
 	});
+		
 	
-	len = 0; //declares len with an initial value of 0
-	
-	
-	var enter = $('#texttype').keydown(function(event){
+	var enter = $('#texttype').keydown(function(event){ //declares variable named enter which on a keypress in the div #texttype executes this function
  
-		var keycode = (event.keyCode ? event.keyCode : event.which);
-		if(keycode == '13'){
-			len = 0;
+		var keycode = (event.keyCode ? event.keyCode : event.which); //still very little clue what this does
+		if(keycode == '13'){ //if the keycode is 13 (enter key)...
+			len = -1; //give variable len the value of -1 (it's not 0 as enter is technically a keystroke, this would make len 1 before anything was pressed)
 		}
 			event.stopPropagation();
-		});
+	});
 	
 	$('#texttype').on("keypress",function(){ //on keypress within the div #texttype...
     	len++; //add one to the value of len
 	});
 	
+	
       $('#texttype').keyup(function () { //on keyup of any key in div #texttype execute this function
 		  
-		  var close = 55; //establishes a variable called 'close' which simply holds the value 54
-		  var max = 65; //establishes a variable called 'max' which simply holds the value 64
+		  var close = 54; //establishes a variable called 'close' which simply holds the value 54
+		  var max = 64; //establishes a variable called 'max' which simply holds the value 64
 		  
 		   if (len >= max) { //if the value of len is greater than or equal to the value of the variable 'max' then...
 		   	$('#charNum').text('You have reached the limit.'); //places the text 'You have...' in the #charNum div
