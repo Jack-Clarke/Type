@@ -61,7 +61,7 @@
 			display:block;
 			border:2px solid #000000;
 			background:#ffffff;
-			padding:30px 30px 10px 30px;
+			padding:30px 20px 10px 20px;
 			resize: none;
 		}
 		
@@ -130,6 +130,7 @@
     
     
     <script src="/js/jquery-1.10.2.js"></script>
+    <script src="js/ion.sound.js"></script>
     <script>
 	
 	/*var len = $('#texttype').keyup(function () {
@@ -177,6 +178,22 @@
     	len++; //add one to the value of len
 	});
 	
+		$('#texttype').keydown(function() {
+		
+		  $.ionSound({
+			sounds: [
+				"bell",
+			],
+				path: "sounds/",
+				multiPlay: true,
+				volume: "1.0"
+		}); 
+			
+			if (len == 65) { //there is a slight delay on the clip
+					$.ionSound.play("bell");
+			}
+		}); 
+	
 	
       $('#texttype').keyup(function () { //on keyup of any key in div #texttype execute this function
 		  
@@ -199,7 +216,6 @@
 		  }
 		});
 		
-			
 
     </script>
 	
