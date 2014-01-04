@@ -61,7 +61,7 @@
 			display:block;
 			border:2px solid #000000;
 			background:#ffffff;
-			padding:30px 20px 10px 20px;
+			padding:30px 18px 10px 18px;
 			resize: none;
 		}
 		
@@ -189,22 +189,30 @@
 				volume: "1.0"
 		}); 
 			
-			if (len == 65) { //there is a slight delay on the clip
+			if (len == 65) { //there is a slight delay on the clip so when typing at normal speed this gives the most appropriate timeframe
 					$.ionSound.play("bell");
 			}
 		}); 
 	
+	var end = false;
 	
-      $('#texttype').keyup(function () { //on keyup of any key in div #texttype execute this function
+      $('#texttype').keyup(function (event) { //on keyup of any key in div #texttype execute this function
 		  
+		  //var keycode = (event.keyCode ? event.keyCode : event.which);
 		  var close = 70; //establishes a variable called 'close' which simply holds the value 70
 		  var max = 80; //establishes a variable called 'max' which simply holds the value 80
 		  
 		   if (len >= max) { //if the value of len is greater than or equal to the value of the variable 'max' then...
+
 		   	$('#charNum').text('You have reached the limit.'); //places the text 'You have...' in the #charNum div
 		  	$("#texttype").keydown(function(event) { //gets the variable #texttype and tells it that on the keydown function this will happen...
 				return false; //...it will return false which disallows access to key down
+				//end = true;
 			});
+		  	
+			/*if (keyCode == '13') { 
+				return true;
+			}*/
 		  
 		  } else if (len >= close) { //if the length of #texttype is greater than or equal to the value of the variable 'close' then...
 		  	var char = max - len; //establishes the variable 'char' as being the value of 'max' - the length of the variable #texttype
@@ -215,8 +223,18 @@
 			$('#charNum').text(char + ' characters left.'); //places the text in #charNum with the value of variable 'char' and the text 'characters...'
 		  }
 		});
-		
 
+	/*$('#texttype').keyup(function (event) {
+		var keycode = (event.keyCode ? event.keyCode : event.which); //still very little clue what this does
+		if(keycode == '13'){ //if the keycode is 13 (enter key)...	
+			$("#texttype").keydown(function(event) { //gets the variable #texttype and tells it that on the keydown function this will happen...
+				return true; //...it will return false which disallows access to key down
+				end = false;
+			});
+		}
+	});*/
+	
+	
     </script>
 	
 </body>
