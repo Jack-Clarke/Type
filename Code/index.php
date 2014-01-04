@@ -49,21 +49,19 @@
 		body	{
 			margin:0;
 			padding:0;
-			valign:center;
+			vertical-align:center;
+			height:500px;
 		}
 		
 		.type	{
 			font-size:100%;
 			font-family:"Courier New", Courier, monospace;
 			width:700px; 
-			min-height:10px;
+			min-height:1px;
 			display:block;
 			border:2px solid #000000;
-			margin-left: auto;
-			margin-right:auto;
 			background:#ffffff;
-			padding:10px 10px 10px 10px;
-			line-height:20px;
+			padding:30px 30px 10px 30px;
 			resize: none;
 		}
 		
@@ -71,11 +69,14 @@
 			position: absolute;
    			bottom:0;
 			overflow:hidden;
+			vertical-align:center;
+			margin-left:18px;
 		}
 		
 		#page	{
 			width:100%;
 			padding:100px 0;
+			overflow:scroll;
 		}
 		
 		#charNum{
@@ -95,9 +96,10 @@
 			height: 3px;
 			width:800px;
 			background:#000000;
-			margin-top:-20px;
+			margin-top:280px;
 			margin-left:auto;
 			margin-right:auto;
+			position:relative;
 		}
 		
 		#about {
@@ -118,11 +120,9 @@
 	<form name="typeapp" id="typeapp">
     	<div id="page">
         <div id="about"><p>Typewriter</p></div>
-    		<span>
+            <div id ="line">
             	<textarea wrap="off" draggable="false" unselectable="on" id="texttype" name="texttype" spellcheck="false" class="type" onkeyup="countChar(this)" onkeypress="keypressed(e)"></textarea>
-        		<span id="texttypeSpan">&nbsp;</span>
-            </span>
-            <div id ="line"></div>
+			</div>
             <div id="charNum"></div>
     	</div>
     </form>
@@ -180,8 +180,8 @@
 	
       $('#texttype').keyup(function () { //on keyup of any key in div #texttype execute this function
 		  
-		  var close = 54; //establishes a variable called 'close' which simply holds the value 54
-		  var max = 64; //establishes a variable called 'max' which simply holds the value 64
+		  var close = 70; //establishes a variable called 'close' which simply holds the value 70
+		  var max = 80; //establishes a variable called 'max' which simply holds the value 80
 		  
 		   if (len >= max) { //if the value of len is greater than or equal to the value of the variable 'max' then...
 		   	$('#charNum').text('You have reached the limit.'); //places the text 'You have...' in the #charNum div
