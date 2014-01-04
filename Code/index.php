@@ -55,12 +55,15 @@
 		.type	{
 			font-size:100%;
 			font-family:"Courier New", Courier, monospace;
-			width:70%;
-			height:300px;
+			width:700px; 
+			min-height:300px;
 			display:block;
-			border:1px solid #c1c1c1;
+			border:2px solid #000000;
 			margin:0 auto;
-			background:#f1f1f1;
+			background:#ffffff;
+			padding:10px 10px 10px 10px;
+			line-height:20px;
+			resize: none;			
 		}
 		
 		#page	{
@@ -68,8 +71,8 @@
 			padding:100px 0;
 		}
 		
-		#charNum	{
-			width:70%;
+		#charNum{
+			width:700px;
 			margin:10px auto;
 		}
 		
@@ -80,6 +83,24 @@
    			-o-user-select: none;
    			user-select: none;
     	}  
+		
+		#line {
+			height: 3px;
+			width:800px;
+			background:#000000;
+			margin-top:-20px;
+			margin-left:auto;
+			margin-right:auto;
+		}
+		
+		#about {
+			font-size:100%;
+			font-family:"Courier New", Courier, monospace;
+			position:fixed;
+			top:10px;
+			left:25px;
+		}
+		
 	</style>
     
    
@@ -89,10 +110,12 @@
 <body OnLoad="document.typeapp.texttype.focus();">
 	<form name="typeapp" id="typeapp">
     	<div id="page">
+        <div id="about"><p>Typewriter</p></div>
     		<span>
             	<textarea wrap="off" draggable="false" unselectable="on" id="texttype" name="texttype" spellcheck="false" class="type" onkeyup="countChar(this)" onkeypress="keypressed(e)"></textarea>
         		<span id="texttypeSpan">&nbsp;</span>
             </span>
+            <div id ="line"></div>
             <div id="charNum"></div>
     	</div>
     </form>
@@ -106,13 +129,28 @@
 		$(this).val().length; //gets the length of the variable #texttype and stores it in varaible 'len'
 	});*/
 	
+	document.getElementById('texttype').addEventListener('keyup', function () {
+		this.style.height = 0; // this is necessary to make it shrink when deleting
+		this.style.height = this.scrollHeight + 'px';
+	}, false);
+	
+	var dissapear = $('#texttype').keyup(function(event){ 
+		var typewriter = $('#about');
+		 typewriter.fadeOut();
+	});
+	
+	var show = $('#page').mousedown(function(event){ 
+		var typewriter = $('#about');
+		 typewriter.fadeIn();
+	});
+	
 	var len = 0; //declares len with an initial value of 0
 	
 	$('#texttype').keypress(function(event){ //on keypress in the div #texttype execute this function
  
 		var keycode = (event.keyCode ? event.keyCode : event.which); //defines variable which just looks around the keyboard?
 			if(keycode == '8'){ //if the keycode is 8 (delete key)...
-				len--; //counteracts problem where keystroke added to the value of len
+				len--; //counteracts problem where keystroke adds to the value of len
 				return false; //return false disabling the key's functionality
 			}
 				event.stopPropagation(); //this is apparently good practice when dealing with keycodes?
