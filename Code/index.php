@@ -56,14 +56,21 @@
 			font-size:100%;
 			font-family:"Courier New", Courier, monospace;
 			width:700px; 
-			min-height:300px;
+			min-height:10px;
 			display:block;
 			border:2px solid #000000;
-			margin:0 auto;
+			margin-left: auto;
+			margin-right:auto;
 			background:#ffffff;
 			padding:10px 10px 10px 10px;
 			line-height:20px;
-			resize: none;			
+			resize: none;
+		}
+		
+		#texttype {
+			position: absolute;
+   			bottom:0;
+			overflow:hidden;
 		}
 		
 		#page	{
