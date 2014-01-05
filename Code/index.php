@@ -4,7 +4,7 @@
 <head lang="en">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<title>Just Type</title>
-	<style type="text/css">
+	<style type="text/css" media="all">
 		body {
 			font-family: Arial, Helvetica, sans-serif;
 			font-size: .9em;
@@ -110,6 +110,51 @@
 			left:25px;
 		}
 		
+		
+		#print_helper {
+  			display: none;
+		}
+		
+		#print {
+			float:right;
+			font-size:100%;
+			font-family:"Courier New", Courier, monospace;
+			position:fixed;
+			top:25px;
+			right:25px;
+		}
+		
+		.print_button a {
+			text-decoration:none;
+		}
+		
+		
+		</style>
+        
+		<style type="text/css" media="print">
+		
+		#print_helper { 
+			position: fixed;
+    		display: block;
+   		 	overflow: visible;
+    		font-family: "Courier New", Courier, monospace;
+			font-size: 13px;
+    		white-space: pre;
+    		white-space: pre-wrap;
+		}
+		
+		#texttype {
+  			display: none;
+		}
+		
+		#charNum {
+			display:none;
+		}
+		
+		#menu {
+			display:none;
+		}
+		
 	</style>
     
    
@@ -119,8 +164,12 @@
 <body OnLoad="document.typeapp.texttype.focus();">
 	<form name="typeapp" id="typeapp">
     	<div id="page">
-        <div id="about"><p>Typewriter</p></div>
-            <div id ="line">
+        <div id="menu">
+        	<div id="about"><p>Typewriter</p></div>
+        	<div id="print" class="print_button"><a href="javascript:window.print()">Print</a></div>
+        </div>
+        <div id="print_helper"></div>
+        <div id ="line">
             	<textarea wrap="off" draggable="false" unselectable="on" id="texttype" name="texttype" spellcheck="false" class="type" onkeyup="countChar(this)" onkeypress="keypressed(e)"></textarea>
 			</div>
             <div id="charNum"></div>
@@ -149,6 +198,16 @@
 	
 	var show = $('#page').mousedown(function(event){ 
 		var typewriter = $('#about');
+		 typewriter.fadeIn();
+	});
+	
+	var print_dissapear = $('#texttype').keyup(function(event){ 
+		var typewriter = $('#print');
+		 typewriter.fadeOut();
+	});
+	
+	var print_show = $('#page').mousedown(function(event){ 
+		var typewriter = $('#print');
 		 typewriter.fadeIn();
 	});
 	
@@ -223,6 +282,17 @@
 			$('#charNum').text(char + ' characters left.'); //places the text in #charNum with the value of variable 'char' and the text 'characters...'
 		  }
 		});
+		
+		jQuery(function($){
+  function copy_to_print_helper(){
+    $('#print_helper').text($('#texttype').val());
+  }
+  $('#texttype').bind('keydown keyup keypress cut copy past blur change', function(){
+    copy_to_print_helper(); // consider debouncing this to avoid slowdowns!
+  });
+  copy_to_print_helper(); // on initial page load
+});
+		
 
 	/*$('#texttype').keyup(function (event) {
 		var keycode = (event.keyCode ? event.keyCode : event.which); //still very little clue what this does
