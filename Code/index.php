@@ -70,7 +70,7 @@
    			bottom:0;
 			overflow:hidden;
 			vertical-align:center;
-			margin-left:18px;
+			margin-left:29px;
 		}
 		
 		#page	{
@@ -108,6 +108,16 @@
 			position:fixed;
 			top:10px;
 			left:25px;
+			cursor:pointer;
+		}
+		
+		#about a {
+			font-size:100%;
+			font-family:"Courier New", Courier, monospace;
+			position:fixed;
+			top:25px;
+			left:25px;
+			text-decoration:none;
 		}
 		
 		
@@ -128,6 +138,55 @@
 			text-decoration:none;
 		}
 		
+		#newpage {
+			font-size:100%;
+			font-family:"Courier New", Courier, monospace;
+			bottom: 15px;
+    		left: 25px;
+    		position: fixed;
+		}
+		
+		#share {
+			font-size:100%;
+			font-family:"Courier New", Courier, monospace;
+			bottom: 15px;
+    		right: 25px;
+    		position: fixed;
+		}
+		
+		#info {
+			position:absolute;
+			width:700px;
+			padding:100px;
+			margin-left:-450px;
+   			left:50%;
+			margin-top:-350px;	
+			font-family:"Courier New", Courier, monospace;
+			color: #f00;
+			font-size:14px;
+			background-color:rgba(255,255,255,0.95);
+			z-index:2000;
+		}
+		
+		#columns {
+        	width: 700px;
+			height: 400px;
+    	}
+
+    	#columns .column {
+        	position: relative;
+        	width: 46%;
+        	padding: 1%;
+        	border: none;
+    	}
+
+    	#columns .left {
+        	float: left;
+    	}
+
+    	#columns .right {
+        	float: right;
+    	}
 		
 		</style>
         
@@ -141,6 +200,7 @@
 			font-size: 13px;
     		white-space: pre;
     		white-space: pre-wrap;
+			margin-top:-100px; /*this allows you you to fit 59 lines on the print page*/
 		}
 		
 		#texttype {
@@ -155,6 +215,9 @@
 			display:none;
 		}
 		
+		#info {
+			display:none;
+		}
 	</style>
     
    
@@ -165,14 +228,25 @@
 	<form name="typeapp" id="typeapp">
     	<div id="page">
         <div id="menu">
-        	<div id="about"><p>Typewriter</p></div>
+        	<div id="about"><a onclick="toggle_visibility('info');">About</a></div>
         	<div id="print" class="print_button"><a href="javascript:window.print()">Print</a></div>
+            <div id="newpage"><p>New Page</p></div>
+            <div id="share"><p>Share</p></div>
         </div>
         <div id="print_helper"></div>
         <div id ="line">
             	<textarea wrap="off" draggable="false" unselectable="on" id="texttype" name="texttype" spellcheck="false" class="type" onkeyup="countChar(this)" onkeypress="keypressed(e)"></textarea>
-			</div>
+		</div>
             <div id="charNum"></div>
+            <div id="info" style="display:none">
+            <div id="columns">
+				<div class="left column">
+    			<p>Technology for creative people has advanced rapidly from the days of typewriters, film cameras and cutting mats and with these new tools many revolutionary pieces of work have been created. However, is the work better as a result of this progression and is there a case to be made for reviving methods of creation from the past?</p><p>Take the typewriter as an initial example; albeit cumbersome and unable to erase mistakes, it has a unique quality that can create a more productive and creative platform than a word processor. I believe this to be primarily a result of the aformentioned point, the fact that (on most models at least) you cannot go back and edit mistakes made when writing. This basic limitation forces you to stop caring about your inaccuracies and simply write whatever is in your head.</p>
+                </div>
+            	<div class="right column"><p>It allows you to write as a free train of thought and the meditative noises and actions required by the machine only aid that effect. When writing on a typewriter I find that I stop to read over what I have written much less often than on a computer and as a result of this the writing is; firstly, more grammatically accurate but also much more true to the core message that I was trying to initially convey. Whether it be a letter, a story or an essay I find this to be almost always true.</p><p>This website is an attempt to recreate that effect, adding limitations such as an inability to delete words, copy and paste and write over an A4 page among others.</p>
+                </div>
+                </div>
+			</div>
     	</div>
     </form>
     
@@ -186,30 +260,26 @@
 		$(this).val().length; //gets the length of the variable #texttype and stores it in varaible 'len'
 	});*/
 	
+	function toggle_visibility(id) {
+		var e = document.getElementById(id);
+		e.style.display = ((e.style.display!='none') ? 'none' : 'block');
+	}
+	
 	document.getElementById('texttype').addEventListener('keyup', function () {
 		this.style.height = 0; // this is necessary to make it shrink when deleting
 		this.style.height = this.scrollHeight + 'px';
 	}, false);
 	
 	var dissapear = $('#texttype').keyup(function(event){ 
-		var typewriter = $('#about');
-		 typewriter.fadeOut();
+		var menu = $('#menu');
+		 menu.fadeOut();
 	});
 	
-	var show = $('#page').mousedown(function(event){ 
-		var typewriter = $('#about');
-		 typewriter.fadeIn();
+	var show = $(window).mousedown(function(event){ 
+		var menu = $('#menu');
+		 menu.fadeIn();
 	});
 	
-	var print_dissapear = $('#texttype').keyup(function(event){ 
-		var typewriter = $('#print');
-		 typewriter.fadeOut();
-	});
-	
-	var print_show = $('#page').mousedown(function(event){ 
-		var typewriter = $('#print');
-		 typewriter.fadeIn();
-	});
 	
 	var len = 0; //declares len with an initial value of 0
 	
@@ -298,7 +368,7 @@
 		var keycode = (event.keyCode ? event.keyCode : event.which); //still very little clue what this does
 		if(keycode == '13'){ //if the keycode is 13 (enter key)...	
 			$("#texttype").keydown(function(event) { //gets the variable #texttype and tells it that on the keydown function this will happen...
-				return true; //...it will return false which disallows access to key down
+				return true; //...it will return true which disallows access to key down?
 				end = false;
 			});
 		}
