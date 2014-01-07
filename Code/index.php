@@ -256,19 +256,18 @@
     <script src="js/ion.sound.js"></script>
     <script>
 	
-	/*var len = $('#texttype').keyup(function () {
-		$(this).val().length; //gets the length of the variable #texttype and stores it in varaible 'len'
-	});*/
+	
+	
+	//This function makes the about information display on click
 	
 	function toggle_visibility(id) {
 		var e = document.getElementById(id);
 		e.style.display = ((e.style.display!='none') ? 'none' : 'block');
 	}
 	
-	document.getElementById('texttype').addEventListener('keyup', function () {
-		this.style.height = 0; // this is necessary to make it shrink when deleting
-		this.style.height = this.scrollHeight + 'px';
-	}, false);
+	
+	
+	//These two functions fade the menu in and out when typing
 	
 	var dissapear = $('#texttype').keyup(function(event){ 
 		var menu = $('#menu');
@@ -281,7 +280,27 @@
 	});
 	
 	
+	
+	//This function makes the textarea automatically resize when the text overflows
+	
+	document.getElementById('texttype').addEventListener('keyup', function () {
+		this.style.height = 0; // this is necessary to make it shrink when deleting
+		this.style.height = this.scrollHeight + 'px';
+	}, false);
+
+
+
+	//These functions create a variable 'len' - define it as 0 and then add one to it everytime a key is pressed
+	
 	var len = 0; //declares len with an initial value of 0
+	
+	$('#texttype').on("keypress",function(){ //on keypress within the div #texttype...
+    	len++; //add one to the value of len
+	});
+	
+	
+	
+	// These functions disable the backspace and enter keys
 	
 	$('#texttype').keypress(function(event){ //on keypress in the div #texttype execute this function
  
@@ -303,9 +322,9 @@
 			event.stopPropagation();
 	});
 	
-	$('#texttype').on("keypress",function(){ //on keypress within the div #texttype...
-    	len++; //add one to the value of len
-	});
+	
+	
+	//This function does the sound when the user is getting close to the end of the line
 	
 		$('#texttype').keydown(function() {
 		
@@ -322,8 +341,38 @@
 					$.ionSound.play("bell");
 			}
 		}); 
+		
+		
+		
+	//Two ideas on how to renable the enter key after disabling the keyboard
+	        
+		/*function disfun() {
+			var keycode = (event.keyCode ? event.keyCode : event.which);
+            document.keydown = function () {
+                if (parseInt(event.keyCode) == 13) {
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            };
+        
+        }*/
+		
+		
+		/*$('#texttype').keyup(function (event) {
+		var keycode = (event.keyCode ? event.keyCode : event.which); //still very little clue what this does
+		if(keycode == '13'){ //if the keycode is 13 (enter key)...	
+			$("#texttype").keydown(function(event) { //gets the variable #texttype and tells it that on the keydown function this will happen...
+				return true; //...it will return true which disallows access to key down?
+				end = false;
+			});
+		}
+	});*/
 	
-	var end = false;
+	
+	
+	//Function that disables the keyboard at 70 characters etc
 	
       $('#texttype').keyup(function (event) { //on keyup of any key in div #texttype execute this function
 		  
@@ -353,6 +402,10 @@
 		  }
 		});
 		
+		
+		
+		//Does the printing malarky
+		
 		jQuery(function($){
   function copy_to_print_helper(){
     $('#print_helper').text($('#texttype').val());
@@ -364,15 +417,6 @@
 });
 		
 
-	/*$('#texttype').keyup(function (event) {
-		var keycode = (event.keyCode ? event.keyCode : event.which); //still very little clue what this does
-		if(keycode == '13'){ //if the keycode is 13 (enter key)...	
-			$("#texttype").keydown(function(event) { //gets the variable #texttype and tells it that on the keydown function this will happen...
-				return true; //...it will return true which disallows access to key down?
-				end = false;
-			});
-		}
-	});*/
 	
 	
     </script>
