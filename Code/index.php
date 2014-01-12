@@ -341,66 +341,18 @@
 					$.ionSound.play("bell");
 			}
 		}); 
-		
-		
-		
-	//Two ideas on how to renable the enter key after disabling the keyboard
-	        
-		/*function disfun() {
-			var keycode = (event.keyCode ? event.keyCode : event.which);
-            document.keydown = function () {
-                if (parseInt(event.keyCode) == 13) {
-                    return true;
-                }
-                else {
-                    return false;
-                }
-            };
-        
-        }*/
-		
-		
-		/*$('#texttype').keyup(function (event) {
-		var keycode = (event.keyCode ? event.keyCode : event.which); //still very little clue what this does
-		if(keycode == '13'){ //if the keycode is 13 (enter key)...	
-			$("#texttype").keydown(function(event) { //gets the variable #texttype and tells it that on the keydown function this will happen...
-				return true; //...it will return true which disallows access to key down?
-				end = false;
-			});
-		}
-	});*/
 	
 	
 	
-	//Function that disables the keyboard at 70 characters etc
+	//Function that disables the keyboard at 80 characters etc
 	
-      $('#texttype').keyup(function (event) { //on keyup of any key in div #texttype execute this function
-		  
-		  //var keycode = (event.keyCode ? event.keyCode : event.which);
-		  var close = 70; //establishes a variable called 'close' which simply holds the value 70
-		  var max = 80; //establishes a variable called 'max' which simply holds the value 80
-		  
-		   if (len >= max) { //if the value of len is greater than or equal to the value of the variable 'max' then...
-
-		   	$('#charNum').text('You have reached the limit.'); //places the text 'You have...' in the #charNum div
-		  	$("#texttype").keydown(function(event) { //gets the variable #texttype and tells it that on the keydown function this will happen...
-				return false; //...it will return false which disallows access to key down
-				//end = true;
-			});
-		  	
-			/*if (keyCode == '13') { 
-				return true;
-			}*/
-		  
-		  } else if (len >= close) { //if the length of #texttype is greater than or equal to the value of the variable 'close' then...
-		  	var char = max - len; //establishes the variable 'char' as being the value of 'max' - the length of the variable #texttype
-			$('#charNum').text(char + ' characters left.' + ' You are approaching the limit.'); //replaces the text in #charNum div with 'you have...'
-		 
-		  } else { //if the length of the #texttype variable has not reached either the value of 'max' or 'close' then...
-			var char = max - len; //establishes the variable 'char' as being the value of 'max' - the length of the variable #texttype
-			$('#charNum').text(char + ' characters left.'); //places the text in #charNum with the value of variable 'char' and the text 'characters...'
-		  }
-		});
+	var max = 80;
+		$('#texttype').on("keypress", function (event) {
+    		if (len >= max) {
+        if (event.keyCode != 13){ return false;}
+        else{ len = 0;}
+    }
+});
 		
 		
 		
