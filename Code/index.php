@@ -248,7 +248,7 @@
         	<div id="about"><a onclick="toggle_visibility('info');">About</a></div>
         	<div id="print" class="print_button"><a href="javascript:window.print()">Print</a></div>
             <div id="newpage"><p>New Page</p></div>
-            <div class="fb-share-button" data-href="http://localhost:8888" data-type="link"><div id="share"><p>Share</p></div></div>
+            <div id="share"><p>Share</p></div>
         </div>
         <div id="print_helper"></div>
         <div id ="line">
@@ -271,6 +271,7 @@
     
     <script src="/js/jquery-1.10.2.js"></script>
     <script src="js/ion.sound.js"></script>
+    <script src="js/jquery.hotkeys.js"></script>
     <script>
 	
 	
@@ -328,14 +329,6 @@
 				event.stopPropagation(); //this is apparently good practice when dealing with keycodes?
 	});
 	
-	$('#texttype').keypress(function(e){ //on keypress in the div #texttype execute this function
-
-			if (e.metaKey || e.ctrlKey){ //if the keycode is 17 (cmd key)...
-				return false; //return false disabling the key's functionality
-			}
-				event.stopPropagation(); //this is apparently good practice when dealing with keycodes?
-	});
-	
 	
 	var enter = $('#texttype').keydown(function(event){ //declares variable named enter which on a keypress in the div #texttype executes this function
  
@@ -346,7 +339,10 @@
 			event.stopPropagation();
 	});
 	
-	
+	$('#texttype').bind('keydown.ctrl_a keydown.meta_a', function(event) {
+    event.preventDefault();
+    	return false;
+	});
 	
 	//This function does the sound when the user is getting close to the end of the line
 	
