@@ -252,7 +252,7 @@
         </div>
         <div id="print_helper"></div>
         <div id ="line">
-            	<textarea wrap="off" draggable="false" unselectable="on" id="texttype" name="texttype" spellcheck="false" class="type" onkeyup="countChar(this)" onkeypress="keypressed(e)"></textarea>
+            	<textarea wrap="off" draggable="false" id="texttype" name="texttype" spellcheck="false" class="type" onkeyup="countChar(this)" onkeypress="keypressed(e)"></textarea>
 		</div>
             <div id="charNum"></div>
             <div id="info" style="display:none">
@@ -274,16 +274,20 @@
     <script src="js/jquery.hotkeys.js"></script>
     <script>
 	
-	//almost got the text to not be selectable!
 	
-	/*var toggle_mouse = $('#texttype').mousedown(function(event){
-		if (this.focus = true) {
-			event.preventDefault();
-		}
-		if (this.focus = false) {
-			event.unbind('mousedown').mousedown();
-		}
-	});*/
+	//When clicked on the first time after being deselected the cursor moves to the end of the text...
+	
+	var mouse_off = $('#texttype').mousedown(function (event) {
+    event.preventDefault();
+})
+.focus(function () {
+    this.selectionStart = this.selectionEnd = this.value.length;
+});
+
+var toggle_mouse = $('#line').mousedown(function (event) {
+    mouse_off.focus();
+});
+	
 	
 	//This function makes the about information display on click
 	
