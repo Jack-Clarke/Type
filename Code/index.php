@@ -275,18 +275,27 @@
     <script>
 	
 	
-	//When clicked on the first time after being deselected the cursor moves to the end of the text...
+	var ar = new Array(37, 38, 39, 40);
+	var disableArrowKeys = function(e) {
+    if ($.inArray(e.keyCode, ar)>=0) {
+        e.preventDefault();
+    	}
+	}
+	
+	$('#texttype').keydown(disableArrowKeys);
+	
+	//When clicked on after being deselected the cursor moves to the end of the text
 	
 	var mouse_off = $('#texttype').mousedown(function (event) {
-    event.preventDefault();
-})
-.focus(function () {
-    this.selectionStart = this.selectionEnd = this.value.length;
-});
+    	event.preventDefault();
+	})
+	.focus(function () {
+    	this.selectionStart = this.selectionEnd = this.value.length;
+	});
 
-var toggle_mouse = $('#line').mousedown(function (event) {
-    mouse_off.focus();
-});
+	var toggle_mouse = $('#line').mousedown(function (event) {
+   		mouse_off.focus();
+	});
 	
 	
 	//This function makes the about information display on click
