@@ -274,6 +274,16 @@
     <script src="js/jquery.hotkeys.js"></script>
     <script>
 	
+	//almost got the text to not be selectable!
+	
+	/*var toggle_mouse = $('#texttype').mousedown(function(event){
+		if (this.focus = true) {
+			event.preventDefault();
+		}
+		if (this.focus = false) {
+			event.unbind('mousedown').mousedown();
+		}
+	});*/
 	
 	//This function makes the about information display on click
 	
@@ -340,6 +350,16 @@
 	});
 	
 	$('#texttype').bind('keydown.ctrl_a keydown.meta_a', function(event) {
+    event.preventDefault();
+    	return false;
+	});
+	
+	$('#texttype').bind('keydown.shift_left', function(event) {
+    event.preventDefault();
+    	return false;
+	});
+	
+	$('#texttype').bind('keydown.shift_up', function(event) {
     event.preventDefault();
     	return false;
 	});
