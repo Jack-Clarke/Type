@@ -289,7 +289,7 @@
 				<div class="left column">
     			<p>Primarily, the motivation to create this site was for it to be an exercise to aid the development of my programming and coding skills. However, over the course of it's development it began to take the form of an exploration of the relationship between both new and old technology - that is to say, the typewriter and the word processor.</p><p>I find that a typewriter allows you to write as a free train of thought in a different way to a word procssesing program. Due to an inability to correct mistakes and edit the text I find that I stop to read over what I have written much less often than in Microsoft Word for example.</p>
                 </div>
-            	<div class="right column"><p>As a result the writing almost always seems to be more true to the message or idea that was trying to be conveyed in the text. This app/site is simply an attempt to recreate that effect. It is important not to completely disregard dated technology and methods in the light of new ones, no matter how many extra features they may have. Improving the technology does not necessarily improve creativity.</p><p>For the best results please use Firefox, I have yet to master cross-browser compatibility. If you have any thoughts or comments with regards to this or anything please get in touch, contact details are avaliable at my site linked down below.</p>
+            	<div class="right column"><p>As a result the writing almost always seems to be more true to the message or idea that was trying to be conveyed in the text. This app/site is simply an attempt to recreate that effect. It is important not to completely disregard dated technology and methods in the light of new ones, no matter how many extra features they may have. Adding features does not necessarily improve creativity.</p><p>For the best results please use Firefox, I have yet to master cross-browser compatibility. If you have any thoughts or comments with regards to this or anything please get in touch, contact details are avaliable at my site linked down below.</p>
                 </div>
                 </div>
 			</div>
@@ -380,6 +380,7 @@
 			}
 				event.stopPropagation(); //this is apparently good practice when dealing with keycodes?
 	});
+	
 	
 	
 	var enter = $('#texttype').keydown(function(event){ //declares variable named enter which on a keypress in the div #texttype executes this function
