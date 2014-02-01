@@ -167,6 +167,8 @@
 			font-size:14px;
 			background-color:rgba(255,255,255,0.95);
 			z-index:2000;
+			text-align:justify;
+			height:200px;
 		}
 		
 		#columns {
@@ -188,6 +190,25 @@
     	#columns .right {
         	float: right;
     	}
+		
+		#theCount {
+			font-family:"Courier New", Courier, monospace;
+			color:#FFF;
+			width:200px;
+			text-align:center;
+			margin-top:20px;
+			margin-left:auto;
+			margin-right:auto;
+			position:relative;	
+		}
+		
+		.normal {
+			font-weight:inherit;
+		}
+		
+		.bold {
+			font-weight:600;
+		}
 		
 		</style>
         
@@ -235,6 +256,10 @@
 		#share {
 			display:none;
 		}
+		
+		#theCount {
+			display:none;
+		}
 	</style>
     
    
@@ -247,20 +272,24 @@
         <div id="menu">
         	<div id="about"><a onclick="toggle_visibility('info');">About</a></div>
         	<div id="print" class="print_button"><a href="javascript:window.print()">Print</a></div>
-            <div id="newpage"><p>New Page</p></div>
-            <div id="share"><p>Share</p></div>
+            <div id="newpage"><p>Typewriter 0.5</p></div>
+            <div id="share"><p>Made by Jack</p></div>
         </div>
         <div id="print_helper"></div>
         <div id ="line">
             	<textarea wrap="off" draggable="false" id="texttype" name="texttype" spellcheck="false" class="type" onkeyup="countChar(this)" onkeypress="keypressed(e)"></textarea>
 		</div>
-            <div id="charNum"></div>
-            <div id="info" style="display:none">
+            
+            <div id="theCount">
+            	<span id="linesUsed">0</span>
+            <div>
+            
+            <div id="info" style="display:none;">
             <div id="columns">
 				<div class="left column">
-    			<p>Technology for writers has advanced rapidly from the days of typewriters, notepads and letters, however, is the writing better as a result of this progression and is there a case to be made for reviving methods of creation from the past?</p><p>Take the typewriter as an initial example; albeit cumbersome and unable to erase mistakes, it has a unique quality that can create a more productive and creative platform than a word processor. I believe this to be primarily a result of the aformentioned point, the fact that (on most models at least) you cannot go back and edit mistakes made when writing. This basic limitation forces you to stop caring about your inaccuracies and simply write whatever is in your head.</p>
+    			<p>Primarily, the motivation to create this site was for it to be an exercise to aid the development of my programming and coding skills. However, over the course of it's development it began to take the form of an exploration of the relationship between both new and old technology - that is to say, the typewriter and the word processor.</p><p>I find that a typewriter allows you to write as a free train of thought in a different way to a word procssesing program. Due to an inability to correct mistakes and edit the text I find that I stop to read over what I have written much less often than in Microsoft Word for example.</p>
                 </div>
-            	<div class="right column"><p>It allows you to write as a free train of thought and the meditative noises and actions required by the machine only aid that effect. When writing on a typewriter I find that I stop to read over what I have written much less often than on a computer and as a result of this the writing is; firstly, more grammatically accurate but also much more true to the core message that I was trying to initially convey. Whether it be a letter, a story or an essay I find this to be almost always true.</p><p>This website is an attempt to recreate that effect, adding limitations such as an inability to delete words, copy and paste and write over an A4 page among others.</p>
+            	<div class="right column"><p>As a result the writing almost always seems to be more true to the message or idea that was trying to be conveyed in the text. This app/site is simply an attempt to recreate that effect. It is important not to completely disregard dated technology and methods in the light of new ones, no matter how many extra features they may have. Improving the technology does not necessarily improve creativity.</p><p>For the best results please use Firefox, I have yet to master cross-browser compatibility. If you have any thoughts or comments with regards to this or anything please get in touch, contact details are avaliable at my site linked down below.</p>
                 </div>
                 </div>
 			</div>
@@ -274,6 +303,7 @@
     <script src="js/jquery.hotkeys.js"></script>
     <script>
 	
+	//Disable arrow keys
 	
 	var ar = new Array(37, 38, 39, 40);
 	var disableArrowKeys = function(e) {
@@ -339,7 +369,6 @@
 	});
 	
 	
-	
 	// These functions disable the backspace and enter keys
 	
 	$('#texttype').keypress(function(event){ //on keypress in the div #texttype execute this function
@@ -358,9 +387,15 @@
 		var keycode = (event.keyCode ? event.keyCode : event.which); //still very little clue what this does
 		if(keycode == '13'){ //if the keycode is 13 (enter key)...
 			len = -1; //give variable len the value of -1 (it's not 0 as enter is technically a keystroke, this would make len 1 before anything was pressed)
+			enters = +1;
 		}
 			event.stopPropagation();
 	});
+	
+	
+
+	
+	//
 	
 	$('#texttype').bind('keydown.ctrl_a keydown.meta_a', function(event) {
     event.preventDefault();
@@ -405,9 +440,7 @@
         		if (event.keyCode != 13){ return false;}
         		else{ len = 0;}
     	}
-	});
-		
-		
+	});	
 		
 		//Does the printing malarky
 		
@@ -420,7 +453,42 @@
   });
   copy_to_print_helper(); // on initial page load
 });
-		
+
+		//asd
+		$(document).ready(function(){
+    
+    		var lines = 58;
+			var close = 48;
+    		var linesUsed = $('#linesUsed');
+    
+    		$('#texttype').keydown(function(e) {
+        
+        		newLines = $(this).val().split("\n").length;
+				var linesLeft = 58 - newLines;
+        		linesUsed.text("Lines left: " + linesLeft);
+        
+        		if(e.keyCode == 13 && newLines >= lines) {
+            		$('#theCount').css('color', '#FF4842');
+					linesUsed.text("End of the page!");
+					$("#texttype").keydown(function(event) { 
+    					return false;
+					});
+        		}
+				
+				else if(newLines >= close) {
+;					$('#theCount').css({'visibility':'visible', 'color':'#CCC'});
+				}
+        		
+				else {
+            		$('#theCount').css(); //don't mess with something if it works
+        		}
+    		});
+		});
+
+		//
+		$('#about').click(function() {
+    		$(this).toggleClass('normal bold');
+		});
 
 	
 	
