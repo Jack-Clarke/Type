@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head lang="en">
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<title>Just Type</title>
+    <link rel="icon" type="image/ico" href="favicon/favicon.ico">
+	<title>Typewriter 0.5</title>
 	<style type="text/css" media="all">
 		body {
 			font-family: Arial, Helvetica, sans-serif;
@@ -12,6 +13,7 @@
 			background-color: #FFFFFF;
 			margin: 0;
 			padding: 10px 20px 20px 20px;
+			overflow-y:hidden;
 		}
 
 		samp {
@@ -51,6 +53,7 @@
 			padding:0;
 			vertical-align:center;
 			height:500px;
+			
 		}
 		
 		.type	{
@@ -71,12 +74,13 @@
 			overflow:hidden;
 			vertical-align:center;
 			margin-left:29px;
+			outline: none;
 		}
 		
 		#page	{
 			width:100%;
 			padding:100px 0;
-			overflow:scroll;
+			overflow-y:hidden;
 		}
 		
 		#charNum{
@@ -370,16 +374,14 @@
 	
 	
 	// These functions disable the backspace and enter keys
+
 	
-	$('#texttype').keypress(function(event){ //on keypress in the div #texttype execute this function
- 
-		var keycode = (event.keyCode ? event.keyCode : event.which); //defines variable which just looks around the keyboard?
-			if(keycode == '8'){ //if the keycode is 8 (delete key)...
-				len--; //counteracts problem where keystroke adds to the value of len
-				return false; //return false disabling the key's functionality
-			}
-				event.stopPropagation(); //this is apparently good practice when dealing with keycodes?
-	});
+	$('#texttype').on('keydown', function(e) { 
+    if ( e.which === 8 ) { 
+        return false;
+    }
+    e.stopPropagation();
+});
 	
 	
 	
